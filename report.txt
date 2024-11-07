@@ -1,4 +1,12 @@
 ***PART #1***
-
+For the grammar, I created a rule called "logic" that handles "and," "or" and "not" relations and a rule called "relation" that handles relational operators 
+such as ">" or "==". I tested the sample given in the assignment document and it worked perfectly up to standards.  However, I then tried the sample output of 
+1<2<3, and it carried through with the evaluation to True despite being illegal.  I found that the cause of this was that I was doing
+comparisons between a relation expression and an expr expression, instead of a single comparison between two "expr" operations, so 
+I changed my "relation" rule to reflect that logic, and the output met the assignment criteria.  However, I kept the original logic for my expr2 file since
+the chain is required to work in that scenario.  The pdf did mention changing the interpreter, but I found the code to produce the correct parsing tree, so 
+I did not take any further action.  The last problem I faced with this file was resolving conflicts with the relational operations since I did not get a single 
+True or False as an output but rather a list that contained the outcome of each expression on both sides of the "and", "or" and "not" evaluators.  This issue still 
+persists and has not fully been dealt with yet.
 
 ***PART #2***

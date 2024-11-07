@@ -33,10 +33,24 @@ from lark.visitors import Interpreter
 grammar = """
   ?start: stmt
 
-  ... need code
+  ?prog: stmt
+  ?stmt: ID "=" expr                            -> assign
+    | "if" "(" expr ")" stmt ["else" stmt]      -> if_stmt
+    | "while" "(" expr ")" stmt                 -> while_stmt
+    | "print" "(" expr ")"                      -> print_stmt
+    | "{" stmt (";" stmt)* "}"                  -> block
+  ?expr: expr "+" term                          -> add
+    | expr "-" term                             -> sub
+    | term
+  ?term: term "*" atom                          -> mul
+    | term "/" atom                             -> div
+    | atom
+  ?atom: "(" expr ")"
+    | ID                                        -> var
+    | NUM                                       -> num
 
-  %import common.WORD   -> ID
-  %import common.INT    -> NUM
+  %import common.WORD                           -> ID
+  %import common.INT                            -> NUM
   %import common.WS
   %ignore WS
 """
@@ -47,13 +61,33 @@ parser = Lark(grammar)
 #
 @v_args(inline=True)
 class Eval(Interpreter):
+    def __init__(self): self.env = {}
     def num(self, val):  return int(val)
+    def var(self, name): return self.env.get(name, 0)
+    def assign(self, name, value):
+        self.env[name] = self.visit(value)
+        return self.env[name]
     def add(self, x, y): return Eval().visit(x) + Eval().visit(y)
     def sub(self, x, y): return Eval().visit(x) - Eval().visit(y)
     def mul(self, x, y): return Eval().visit(x) * Eval().visit(y)
     def div(self, x, y): return Eval().visit(x) // Eval().visit(y)
+    def if_stmt(self, condition, then_branch, else_branch=None):
+        if self.visit(condition):
+            return self.visit(then_branch)
+        elif else_branch is not None:
+            return self.visit(else_branch)
+    def while_stmt(self, condition, body):
+        while self.visit(condition):
+            return self.visit(body)
+    def print_stmt(self, value):
+        result = self.visit(value)
+        print(result)
+        return result
+    def block(self, *statements):
+        for stmt in statements:
+            self.visit(stmt)
 
-    # ... need code
+
 
 def main():
     try:

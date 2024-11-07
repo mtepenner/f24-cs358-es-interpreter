@@ -1,11 +1,11 @@
 # Matthew Penner
-#
+# 
 
 # CS358 Fall'24 Assignment 2 (Part A)
 #
-# Expr - an expression language with arithmetic, logical, and 
+# Expr2 - an expression language with arithmetic, logical, and 
 #        relational operations
-#
+# The chain works!
 
 from lark import Lark, v_args
 from lark.visitors import Interpreter
@@ -18,12 +18,12 @@ grammar = """
        | logic "or" relation   -> or
        | "not" relation   -> not
        | relation
-  ?relation: expr "==" expr -> eq
-           | expr "!=" expr -> neq
-           | expr "<" expr -> lt
-           | expr ">" expr -> gt
-           | expr "<=" expr -> leq
-           | expr ">=" expr -> geq
+  ?relation: relation "==" expr -> eq
+           | relation "!=" expr -> neq
+           | relation "<" expr -> lt
+           | relation ">" expr -> gt
+           | relation "<=" expr -> leq
+           | relation ">=" expr -> geq
            | expr
   ?expr: expr "+" term  -> add
         | expr "-" term  -> sub
