@@ -10,3 +10,10 @@ True or False as an output but rather a list that contained the outcome of each 
 persists and has not fully been dealt with yet.
 
 ***PART #2***
+(Lark Parser)
+Setting up the lark parser was not too complicated.  Writing the additional functions for eval was very straightforward, and all followed easy to understand structure.
+I did not test any code initially, but I compiled and ran it without any note worthy errors.  One issue I am having is that I was unable to resolve how to fix the dangling 
+else since I referenced Exercise 4, and tried to replicate its structure, but there were errors once run in the terminal.
+
+(The .st files)
+Given the rules of how the st files should look in the assignment document, writing the code for these files was not difficult.  However, actually testing them was a challenge.
