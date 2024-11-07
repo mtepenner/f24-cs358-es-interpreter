@@ -38,9 +38,15 @@ grammar = """
     | "if" "(" expr ")" stmt ["else" stmt]      -> if_stmt
     | "while" "(" expr ")" stmt                 -> while_stmt
     | "print" "(" expr ")"                      -> print_stmt
-    | "{" stmt (";" stmt)* "}"                  -> block
+    | "{" stmt* (";" stmt)* "}"                  -> block
   ?expr: expr "+" term                          -> add
     | expr "-" term                             -> sub
+    | expr ">" term                             -> gt 
+    | expr "<" term                             -> lt 
+    | expr ">=" term                            -> geq 
+    | expr "<=" term                            -> leq
+    | expr "==" term                            -> eq 
+    | expr "!=" term                            -> neq 
     | term
   ?term: term "*" atom                          -> mul
     | term "/" atom                             -> div
@@ -70,7 +76,12 @@ class Eval(Interpreter):
     def add(self, x, y): return Eval().visit(x) + Eval().visit(y)
     def sub(self, x, y): return Eval().visit(x) - Eval().visit(y)
     def mul(self, x, y): return Eval().visit(x) * Eval().visit(y)
-    def div(self, x, y): return Eval().visit(x) // Eval().visit(y)
+    def lt(self, x, y): return Eval().visit(x) < Eval().visit(y)
+    def gt(self, x, y): return Eval().visit(x) > Eval().visit(y)
+    def leq(self, x, y): return Eval().visit(x) <= Eval().visit(y)
+    def gec(self, x, y): return Eval().visit(x) >= Eval().visit(y)
+    def eq(self, x, y): return Eval().visit(x) == Eval().visit(y)
+    def neq(self, x, y): return Eval().visit(x) != Eval().visit(y)
     def if_stmt(self, condition, then_branch, else_branch=None):
         if self.visit(condition):
             return self.visit(then_branch)
