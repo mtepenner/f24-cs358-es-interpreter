@@ -1,3 +1,6 @@
+Matthew Penner
+CS358 Prof. Jingke Li
+
 ***PART #1***
 For the grammar, I created a rule called "logic" that handles "and," "or" and "not" relations and a rule called "relation" that handles relational operators 
 such as ">" or "==". I tested the sample given in the assignment document and it worked perfectly up to standards.  However, I then tried the sample output of 
