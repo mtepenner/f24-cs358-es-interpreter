@@ -34,23 +34,25 @@ grammar = """
   ?start: stmt
 
   ?prog: stmt
-  ?stmt: ID "=" expr                            -> assign
-    | "if" "(" expr ")" stmt ["else" stmt]      -> if_stmt
-    | "while" "(" expr ")" stmt                 -> while_stmt
-    | "print" "(" expr ")"                      -> print_stmt
+  ?stmt: ID "=" relation                            -> assign
+    | "if" "(" relation ")" stmt ["else" stmt]      -> if_stmt
+    | "while" "(" relation ")" stmt                 -> while_stmt
+    | "print" "(" relation ")"                      -> print_stmt
     | "{" stmt (";" stmt)* "}"                  -> block
-  ?expr: expr "+" term                          -> add
-    | expr "-" term                             -> sub
-    | expr ">" term                             -> gt 
-    | expr "<" term                             -> lt 
-    | expr ">=" term                            -> geq 
-    | expr "<=" term                            -> leq
-    | expr "==" term                            -> eq 
-    | expr "!=" term                            -> neq 
-    | term
-  ?term: term "*" atom                          -> mul
-    | term "/" atom                             -> div
-    | atom
+    | relation
+  ?relation: relation "==" expr -> eq
+           | relation "!=" expr -> neq
+           | relation "<" expr -> lt
+           | relation ">" expr -> gt
+           | relation "<=" expr -> leq
+           | relation ">=" expr -> geq
+           | expr
+  ?expr: expr "+" term  -> add
+        | expr "-" term  -> sub
+        | term         
+  ?term: term "*" atom  -> mul
+       | term "/" atom  -> div
+       | atom
   ?atom: "(" expr ")"
     | ID                                        -> var
     | NUM                                       -> num
