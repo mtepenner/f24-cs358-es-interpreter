@@ -38,7 +38,7 @@ grammar = """
     | "if" "(" expr ")" stmt ["else" stmt]      -> if_stmt
     | "while" "(" expr ")" stmt                 -> while_stmt
     | "print" "(" expr ")"                      -> print_stmt
-    | "{" stmt* (";" stmt)* "}"                  -> block
+    | "{" stmt (";" stmt)* "}"                  -> block
   ?expr: expr "+" term                          -> add
     | expr "-" term                             -> sub
     | expr ">" term                             -> gt 
