@@ -1,9 +1,4 @@
 
-### About Section
-A Python-based interpreter for a custom expression and statement language using the Lark parsing library, featuring arithmetic, logic, and control flow operations.
-
-***
-
 # Expression and Statement Interpreter
 
 ## Description
