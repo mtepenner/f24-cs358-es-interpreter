@@ -10,7 +10,6 @@ This project implements an interpreter for a custom expression and statement lan
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Installation 🛠️
 
